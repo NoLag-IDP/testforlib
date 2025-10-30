@@ -1,0 +1,106 @@
+--// 🟥 Auto Moreira GUI (Visual Only)
+if game.CoreGui:FindFirstChild("AutoMoreiraGUI") then
+	game.CoreGui.AutoMoreiraGUI:Destroy()
+end
+
+local CoreGui = game:GetService("CoreGui")
+local UserInputService = game:GetService("UserInputService")
+
+--------------------------------------------------------
+-- GUI SETUP
+--------------------------------------------------------
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "AutoMoreiraGUI"
+ScreenGui.Parent = CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+ScreenGui.ResetOnSpawn = false
+
+local outlineFrame = Instance.new("Frame")
+outlineFrame.Size = UDim2.new(0, 340, 0, 180)
+outlineFrame.Position = UDim2.new(0.5, -170, 0.5, -90)
+outlineFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+outlineFrame.BorderSizePixel = 0
+outlineFrame.Parent = ScreenGui
+Instance.new("UICorner", outlineFrame).CornerRadius = UDim.new(0, 10)
+
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(1, -6, 1, -6)
+mainFrame.Position = UDim2.new(0, 3, 0, 3)
+mainFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+mainFrame.BorderSizePixel = 0
+mainFrame.Parent = outlineFrame
+Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 10)
+
+-- Title
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, -40, 0, 36)
+title.Position = UDim2.new(0, 10, 0, 8)
+title.BackgroundTransparency = 1
+title.Font = Enum.Font.GothamBold
+title.TextSize = 22
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextXAlignment = Enum.TextXAlignment.Left
+title.Text = "Auto Moreira"
+title.Parent = mainFrame
+
+-- Close Button
+local closeBtn = Instance.new("TextButton")
+closeBtn.Size = UDim2.new(0, 36, 0, 28)
+closeBtn.Position = UDim2.new(1, -44, 0, 8)
+closeBtn.BackgroundColor3 = Color3.fromRGB(180, 30, 30)
+closeBtn.Text = "X"
+closeBtn.Font = Enum.Font.GothamBold
+closeBtn.TextSize = 18
+closeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeBtn.BorderSizePixel = 0
+closeBtn.Parent = mainFrame
+Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 6)
+closeBtn.MouseButton1Click:Connect(function()
+	ScreenGui:Destroy()
+end)
+
+-- Center Label (SOON!)
+local soonLabel = Instance.new("TextLabel")
+soonLabel.Size = UDim2.new(1, 0, 1, 0)
+soonLabel.Position = UDim2.new(0, 0, 0, 0)
+soonLabel.BackgroundTransparency = 1
+soonLabel.Font = Enum.Font.GothamBold
+soonLabel.TextSize = 36
+soonLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+soonLabel.Text = "SOON!"
+soonLabel.Parent = mainFrame
+
+--------------------------------------------------------
+-- DRAGGING
+--------------------------------------------------------
+local dragging, dragInput, startPos, startInputPos
+outlineFrame.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = true
+		startPos = outlineFrame.Position
+		startInputPos = input.Position
+		input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				dragging = false
+			end
+		end)
+	end
+end)
+
+outlineFrame.InputChanged:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+		dragInput = input
+	end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+	if input == dragInput and dragging then
+		local delta = input.Position - startInputPos
+		outlineFrame.Position = UDim2.new(
+			startPos.X.Scale,
+			startPos.X.Offset + delta.X,
+			startPos.Y.Scale,
+			startPos.Y.Offset + delta.Y
+		)
+	end
+end)
