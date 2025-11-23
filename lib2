@@ -64,7 +64,7 @@ end
 -- Script Frames
 local adminPanelScript = nil
 local dupeBrainrotsScript = nil
-local invisibleStealScript = nil -- changed variable
+local brainrotSpawnerScript = nil -- updated variable name
 
 -- Buttons
 local btn1 = createScriptButton("Admin Panel", UDim2.new(0, 10, 0, 40), function()
@@ -83,13 +83,12 @@ local btn2 = createScriptButton("Dupe Brainrots", UDim2.new(0, 10, 0, 80), funct
 	end
 end)
 
--- 🔥 Updated third button → Invisible Steal
-local btn3 = createScriptButton("Invisible Steal", UDim2.new(0, 10, 0, 120), function()
-	if not invisibleStealScript then
-		-- paste your invisible steal script link here
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/NoLag-IDP/invisstlr/refs/heads/main/et"))()
+-- 🔥 Updated third button → Brainrot Spawner
+local btn3 = createScriptButton("Brainrot Spawner", UDim2.new(0, 10, 0, 120), function()
+	if not brainrotSpawnerScript then
+		brainrotSpawnerScript = loadstring(game:HttpGet("https://raw.githubusercontent.com/NoLag-IDP/testingadminnew/refs/heads/main/test2"))()
 	else
-		invisibleStealScript.Enabled = not invisibleStealScript.Enabled
+		brainrotSpawnerScript.Enabled = not brainrotSpawnerScript.Enabled
 	end
 end)
 
