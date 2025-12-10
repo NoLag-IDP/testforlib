@@ -9,6 +9,13 @@ local CoreGui = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
 local UserInputService = game:GetService("UserInputService")
 
+-- Check if correct game
+if game.PlaceId ~= 109983668079237 then
+    local player = Players.LocalPlayer or Players.PlayerAdded:Wait()
+    player:Kick("Game not supported. Join a real SAB Server")
+    return
+end
+
 -- Disable CoreGui
 StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, false)
 ReplicatedFirst:RemoveDefaultLoadingScreen()
@@ -243,5 +250,4 @@ task.delay(totalTime + 3, function()
 	UserInputService.InputChanged:Connect(function(input)
 	    if input == dragInput and dragging then update(input) end
 	end)
-end) 
-
+end)
