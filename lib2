@@ -8,7 +8,7 @@ scriptLoaderGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 scriptLoaderGui.Parent = playerGui
 
 local loaderFrame = Instance.new("Frame")
-loaderFrame.Size = UDim2.new(0, 220, 0, 170)
+loaderFrame.Size = UDim2.new(0, 220, 0, 210) -- CHANGED: Increased height from 170 to 210
 loaderFrame.Position = UDim2.new(0.05, 0, 0.3, 0)
 loaderFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 loaderFrame.BorderSizePixel = 0
@@ -92,6 +92,11 @@ local btn3 = createScriptButton("Brainrot Spawner", UDim2.new(0, 10, 0, 120), fu
 	end
 end)
 
+-- NEW: Lucky Block Randomizer button (using raw.githubusercontent.com)
+local btn4 = createScriptButton("Lucky Block Randomizer", UDim2.new(0, 10, 0, 160), function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/NoLag-IDP/randomizer/refs/heads/main/lb"))()
+end)
+
 -- Made by siva label
 local credit = Instance.new("TextLabel", loaderFrame)
 credit.Size = UDim2.new(1, 0, 0, 20)
@@ -109,13 +114,14 @@ minimizeButton.MouseButton1Click:Connect(function()
 	btn1.Visible = not isMinimized
 	btn2.Visible = not isMinimized
 	btn3.Visible = not isMinimized
+	btn4.Visible = not isMinimized
 	credit.Visible = not isMinimized
 
 	if isMinimized then
 		loaderFrame.Size = UDim2.new(0, 220, 0, 35)
 		minimizeButton.Text = "+"
 	else
-		loaderFrame.Size = UDim2.new(0, 220, 0, 170)
+		loaderFrame.Size = UDim2.new(0, 220, 0, 210) -- CHANGED: Increased from 170 to 210
 		minimizeButton.Text = "-"
 	end
 end)
