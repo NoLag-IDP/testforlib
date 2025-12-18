@@ -94,7 +94,7 @@ end)
 
 -- NEW: Lucky Block Randomizer button (using raw.githubusercontent.com)
 local btn4 = createScriptButton("Lucky Block Randomizer", UDim2.new(0, 10, 0, 160), function()
-	loadstring(game:HttpGet(""))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/NoLag-IDP/randomizer/refs/heads/main/rigver"))()
 end)
 
 -- Made by siva label
